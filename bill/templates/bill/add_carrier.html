@@ -1,0 +1,115 @@
+{% extends 'bill/base.html' %}	
+{% block content %}	
+	<div class="col-md-12">
+        <div class="card">
+			<div class="card-header">
+				<div class="card-title">New Carrier</div>
+			</div>
+			<div class="card-body">
+				<div class="mbill">
+			    	<form action="{% url 'add-car'  %}" method="POST" >
+					{% csrf_token %}			
+					    <div class="phs">
+					
+					<div class="row">
+					
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Carrier Id</label>
+                                <input type="text" class="form-control" name="car_id" required>
+                            </div>				
+                        </div>	
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Carrier Name</label>
+                                <input type="text" class="form-control" name="car_name">	
+                            </div>											
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Address</label>    
+                                <input type="text" class="form-control" name="car_add">
+                            </div>											
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Mobile</label>
+                                <input type="tel" class="form-control" name="car_mob">
+                            </div>											
+                        </div>
+                    </div>
+                        
+						<div class="card-action">
+									<button type="submit" class="btn btn-success">Add</button>
+									<button class="btn btn-danger">Cancel</button>
+								</div>
+						
+						</form>
+						
+						
+						</div>
+						</div>
+						</div>
+						</div>
+                        <table>
+                            <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Mobile</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            </tr>
+                            {% for carrier in carriers %}
+                            <tr>
+                                <td data-id="{{carrier.id}}">{{ carrier.Carrier_Id}}</td>
+                                <td contenteditable='true' id="data-carname-{{carrier.Carrier_Id}}" onClick="highlightEdit(this);">{{ carrier.Name}}</td>
+                                <td contenteditable='true' id="data-caraddr-{{carrier.Carrier_Id}}" onClick="highlightEdit(this);">{{ carrier.Address}}</td>
+                                <td contenteditable='true' id="data-carmob-{{carrier.Carrier_Id}}" onClick="highlightEdit(this);">{{ carrier.Mobile}}</td>
+                                <td><a style="color:green;font-weight:bold;" onclick="saveCarrier('{{carrier.Carrier_Id}}')" role="button">Save</a></td>
+                                <td><a style="color:red;font-weight:bold;"  role="button" >Delete</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <script type="text/javascript">
+                            // save the details edited
+                            function saveCarrier(id) {
+                                //e.preventDefault();
+                                console.log(id)
+                                editName = $('#data-carname-'+id).html()
+                                editAddress = $('#data-caraddr-'+id).html() 
+                                editMobile = $('#data-carmob-'+id).html()
+                                console.log(editName,editAddress,editMobile)
+                                $.ajax({
+                                    url: "list/update/"+id,
+                                    data: {
+                                        "Name": editName,
+                                        "Address":editAddress,
+                                        "Mobile":editMobile,
+                                        "type":"Carrier" },
+                                    success: function() {
+                                         // set updated value as old value 
+                                        alert("Updated successfully")            
+                                    },
+                                    error: function(response){
+                                        alert(error)
+                                    }
+                                });
+                                
+                            }
+                            // highlight the cell for 5 seconds
+                            function highlightEdit(elem)
+                            {
+                                
+                                $(elem).css("background", "red") //just add any css or anything, it's only to depict that this area is being edited...
+                                setTimeout(()=>{
+                                    $(elem).css("background","")
+                                },3000)
+                            }
+                        </script> 
+{% endblock %}					
+				

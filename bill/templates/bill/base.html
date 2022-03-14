@@ -1,0 +1,318 @@
+{% load static %}
+
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	
+	<title>Biswas Ganga</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="{% static 'bill/assets/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static  'bill/assets/css/atlantis.min.css' %}">
+
+	
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&display=swap" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src=
+"//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+</script>
+<script src=
+"//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js">
+</script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<style>
+		table {
+		  font-family: arial, sans-serif;
+		  border-collapse: collapse;
+		  width: 95.5%;
+		  position: relative;
+		  left:25px;
+		  margin-bottom: 20px;
+		}
+		
+		td, th {
+		  border: 1px solid #dddddd;
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		tr:nth-child(even) {
+		  background-color: #dddddd;
+		}
+		</style>
+	</head>
+
+	<script>
+		function saveFunction() {
+  			alert("Edits Saved !!");
+	    }
+        function goBack() {
+	        window.history.back();
+        }
+        function Details_Saved() {
+		  alert("All Details Saved Succesfully !!");
+        }
+        function myFunction() {
+  			alert("Transaction Processed !!");
+	    }
+		function month_to_num() {
+			 
+			var d = new Date();
+			var n = d.getMonth();
+			document.getElementById("month").value = "n";
+			console.log("hello");	 
+		}
+
+		
+	</script>
+<body>
+	<div class="wrapper">
+		<div class="main-header">
+			<!-- Logo Header -->
+			<div class="logo-header" >
+				
+				
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+				</button>
+				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div>
+			</div>
+			<!-- End Logo Header -->
+
+			<!-- Navbar Header -->
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+				
+				<div class="container-fluid rk">
+					<h2>Viswas</h2>
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						
+						<li class="nav-item dropdown hidden-caret">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+								
+							</a>
+							<ul class="dropdown-menu dropdown-user animated fadeIn">
+								<div class="dropdown-user-scroll scrollbar-outer">
+									<li>
+										<div class="user-box">
+											<div class="avatar-lg"><img src="{% static 'paybill/img_2/no-person.jpg' %}" alt="image profile" class="avatar-img rounded"></div>
+											<div class="u-text">
+												<h4>MLA USER</h4>
+												{% if user.is_authenticated %}
+												<p class="text-muted">{{ user.username }}</p>
+												{% endif %}
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Logout</a>
+									</li>
+								</div>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!-- End Navbar -->
+		</div>
+
+		<!-- Sidebar -->
+		<div class="sidebar sidebar-style-2">			
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+					
+					<ul class="nav nav-primary">
+						
+						<li class="nav-section active">
+							<span class="sidebar-mini-icon">
+								<i class="fa fa-ellipsis-h"></i>
+							</span>
+							
+						</li>
+						<li class="nav-item">
+							<a  href="{% url 'add-dg' %}">
+								<i class="fa fa-desktop" aria-hidden="true"></i>
+
+								<p>Add Distributor Group</p>
+								
+							</a>
+						</li>
+						<li class="nav-item">
+							<a  href="{% url 'add-fg' %}">
+								<i class="fa fa-tasks" aria-hidden="true"></i>
+								<p>Add Farmer Group</p>
+								
+							</a>
+							
+						</li>
+						<li class="nav-item">
+							<a  href="{% url 'add-d'%}">
+								<i class="fa fa-paypal" aria-hidden="true"></i>
+
+								<p>Add Distributor</p>
+								
+							</a>
+							
+						</li>
+						<li class="nav-item">
+							<a  href="{% url 'add-c' %}">
+							<i class="fa fa-file-powerpoint-o" aria-hidden="true"></i>
+
+								<p>Add Customer</p>
+								
+							</a>
+							
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'add-f' %}">
+							<i class="fa fa-newspaper-o" aria-hidden="true"></i>
+
+								<p>Add Farmer</p>
+								
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{% url 'add-car' %}">
+							<i class="fa fa-newspaper-o" aria-hidden="true"></i>
+
+								<p>Add Carrier</p>
+								
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a  href="{% url 'add-p'%}">
+								<i class="fa fa-shower" aria-hidden="true"></i>
+
+								<p>Add Product</p>
+								
+							</a>
+							
+						</li>
+						<li class="nav-item">
+							<a  href="{% url 'add-ctd' %}">
+								<i class="fa fa-address-book-o" aria-hidden="true"></i>
+
+								<p>Customer Transaction Today</p>
+								
+							</a>
+							
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'add-dtd' %}">
+								<i class="fa fa-credit-card" aria-hidden="true"></i>
+
+								<p>Distributor Transaction Today</p>
+								
+							</a>
+							
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'add-ftd' %}">
+								<i class="fa fa-table" aria-hidden="true"></i>
+
+								<p>Farmer Transaction Today</p>
+								
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{% url 'add-ca' %}">
+								<i class="fa fa-table" aria-hidden="true"></i>
+
+								<p>Aggregate</p>
+								
+							</a>
+						</li>
+					
+						<li class="nav-item">
+							<a href="{% url 'add-bal' %}">
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+								<p>Update Paid / Due Balance</p>
+								
+							</a>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- End Sidebar -->
+
+		<div class="main-panel">
+			<div class="content">
+				<div class="panel-header bg-primary-gradient">
+					<div class="page-inner py-5">
+						<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+							<div>
+								<h2 class="text-white pb-2 fw-bold">Dashboard</h2>
+								<h3 class="text-white op-7 mb-2"></h3>
+							</div>
+							<div class="ml-md-auto py-2 py-md-0">
+								<a href="#" class="btn btn-white btn-border btn-round mr-2"></a>
+								<a href="#" class="btn btn-secondary btn-round"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="page-inner pin pin2">
+					
+					<div class="row">
+						
+                            {% block content%}{% endblock %}
+                    </div>     
+                            
+                        </div>
+                    </div>
+                    
+                    </div>
+                    <div class="c"></div>
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <nav class="pull-left">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Contact Us
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Help
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Privacy Policy
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="copyright ml-auto">
+                                2021, Developed <i class="fa fa-heart heart text-danger"></i> by <a href="#">NIC</a>
+                            </div>				
+                        </div>
+                    </footer>
+                </div>
+            </div>
+            <!--   Core JS Files   -->
+            <!--<script src="{% static 'paybill/assets/js_2/jquery.3.2.1.min.js' %}"></script>
+            jQuery Scrollbar -->
+            <script src="{% static 'paybill/assets/js_2/jquery.scrollbar.min.js' %}"></script>
+            <!-- Atlantis JS -->
+            <script src="{% static 'paybill/assets/js_2/atlantis.min.js' %}"></script>
+            
+            <script src="{% static 'paybill/assets/js_2/bootstrap.min.js' %}"></script>

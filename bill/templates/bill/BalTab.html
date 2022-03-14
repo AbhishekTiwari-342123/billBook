@@ -1,0 +1,15 @@
+{% for record in DueRemaining %}
+<tr>
+    <td>{{record.Customer_Id}}</td>
+    <td>{{record.Date}}</td>
+    <td>{{record.Paid}}</td>
+    <td>{{record.Due}}</td>
+</tr>
+{% endfor %}
+<tr>
+    <td>Total</td>
+    <td></td>
+    <td>{{data.Total_Paid}}</td>
+    <td>{{data.Total_Due}}</td>
+</tr>
+

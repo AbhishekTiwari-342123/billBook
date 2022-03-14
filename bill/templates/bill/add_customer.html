@@ -1,0 +1,138 @@
+{% extends 'bill/base.html' %}	
+{% block content %}	
+	<div class="col-md-12">
+        <div class="card">
+			<div class="card-header">
+				<div class="card-title">New Customer</div>
+			</div>
+			<div class="card-body">
+				<div class="mbill">
+			    	<form action="{% url 'add-c'  %}" method="POST" >
+					{% csrf_token %}			
+					    <div class="phs">
+					
+					<div class="row">
+					
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Customer Id</label>
+                                <input type="text" class="form-control" name="cus_id" required>
+                            </div>				
+                        </div>	
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Customer Name</label>
+                                <input type="text" class="form-control" name="cus_name">	
+                            </div>											
+                        </div>
+				
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Distributor Name</label><br>
+                                <select name="cus_dis" required style="height:40px;width: 325px;">
+                                    <option selected>--Select--</option>
+                                    {% for distributor in distributors %}
+                                        <option>{{ distributor.Name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>				
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Address</label>    
+                                <input type="text" class="form-control" name="cus_add">
+                            </div>											
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Mobile</label>
+                                <input type="tel" class="form-control" name="cus_mob">
+                            </div>											
+                        </div>
+                    </div>
+                        
+						<div class="card-action">
+									<button type="submit" class="btn btn-success">Add</button>
+									<button class="btn btn-danger">Cancel</button>
+								</div>
+						
+						</form>
+						
+						
+						</div>
+						</div>
+						</div>
+						</div>
+                        <table>
+                            <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Distributor Name</th>
+                            <th>Address</th>
+                            <th>Mobile</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            </tr>
+                            {% for customer in customers %}
+                            <tr>
+                                <td data-id="{{customer.id}}">{{ customer.Customer_Id}}</td>
+                                <td contenteditable='true' id="data-name-{{customer.Customer_Id}}" onClick="highlightEdit(this);">{{ customer.Name}}</td>
+                                <td contenteditable='true'  onClick="highlightEdit(this);">
+                                    <select id="data-dname-{{customer.Customer_Id}}">
+                                        <option selected>{{ customer.Distributor_Name}}</option>
+                                        {% for distributor in distributors %}
+                                            <option  value="{{ distributor.Name}}">{{ distributor.Name}}</option>
+                                        {% endfor %} 
+                                    </select>
+                                </td>
+                                <td contenteditable='true' id="data-addr-{{customer.Customer_Id}}" onClick="highlightEdit(this);">{{ customer.Address}}</td>
+                                <td contenteditable='true' id="data-mob-{{customer.Customer_Id}}" onClick="highlightEdit(this);">{{ customer.Mobile}}</td>
+                                <td><a style="color:green;font-weight:bold;" onclick="saveQuestionAnswer('{{customer.Customer_Id}}')" role="button">Save</a></td>
+                                <td><a style="color:red;font-weight:bold;" onclick="return confirm('{{customer.Name}} will be deleted, are you sure ?')" href={% url 'delete' customer.Customer_Id %} role="button" >Delete</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <script type="text/javascript">
+                            // save the details edited
+                            function saveQuestionAnswer(id) {
+                                //e.preventDefault();
+                                console.log(id)
+                                editName = $('#data-name-'+id).html()
+                                editDistributorName = $('#data-dname-'+id).val()
+                                editAddress = $('#data-addr-'+id).html() 
+                                editMobile = $('#data-mob-'+id).html()
+                                console.log(editName,editDistributorName,editAddress,editMobile)
+                                $.ajax({
+                                    url: "list/update/"+id,
+                                    data: {
+                                        "Name": editName,
+                                        "Distributor_Name": editDistributorName,
+                                        "Address":editAddress,
+                                        "Mobile":editMobile,
+                                        "type":"Customer" },
+                                    success: function() {
+                                         // set updated value as old value 
+                                        alert("Updated successfully")            
+                                    },
+                                    error: function(response){
+                                        alert(error)
+                                    }
+                                });
+                                
+                            }
+                            // highlight the cell for 5 seconds
+                            function highlightEdit(elem)
+                            {
+                                
+                                $(elem).css("background", "red") //just add any css or anything, it's only to depict that this area is being edited...
+                                setTimeout(()=>{
+                                    $(elem).css("background","")
+                                },3000)
+                            }
+                        </script>
+{% endblock %}					
+				

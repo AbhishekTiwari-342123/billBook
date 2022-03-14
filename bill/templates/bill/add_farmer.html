@@ -1,0 +1,71 @@
+{% extends 'bill/base.html' %}	
+{% block content %}	
+	<div class="col-md-12">
+        <div class="card">
+			<div class="card-header">
+				<div class="card-title">New Farmer</div>
+			</div>
+			<div class="card-body">
+				<div class="mbill">
+			    	<form action="{% url 'add-f'  %}" method="POST" >
+					{% csrf_token %}			
+					    <div class="phs">
+					
+					<div class="row">
+					
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Farmer Id</label>
+                                <input type="text" class="form-control" name="far_id" required>
+                            </div>				
+                        </div>	
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Farmer Name</label>
+                                <input type="text" class="form-control" name="far_name">	
+                            </div>											
+                        </div>
+				
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Farmer Group Name</label><br>
+                                <select name="far_grp" required style="height:40px;width: 325px;">
+                                    <option selected>--Select--</option>
+                                    {% for farmerGroup in farmerGroups %}
+                                        <option>{{ farmerGroup.Farmer_Group_Name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>				
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Address</label>    
+                                <input type="text" class="form-control" name="far_add">
+                            </div>											
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Mobile</label>
+                                <input type="tel" class="form-control" name="far_mob">
+                            </div>											
+                        </div>
+                    </div>
+                        
+						<div class="card-action">
+									<button type="submit" class="btn btn-success">Add</button>
+									<button class="btn btn-danger">Cancel</button>
+								</div>
+						
+						</form>
+						
+						
+						</div>
+						</div>
+						</div>
+						</div>
+{% endblock %}					
+				

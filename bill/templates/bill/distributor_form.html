@@ -1,0 +1,142 @@
+
+{% extends 'bill/base.html' %}
+{% block content %}
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">New Distributor</div>
+								</div>
+								<div class="card-body">
+									<div class="mbill">
+					<form action="#" method="post" >
+					{% csrf_token %}
+
+
+					<div class="phs">
+
+					<div class="row">
+
+					<div class="col-md-3">
+						<div class="form-group">
+                            <label>Distributor Id</label>
+                            <select id="selectmember" name="d_id">
+                                <option selected disabled="true">--Select Distributor Group--</option>
+                                {% for group in context %}
+                                <option value="{{group.Distributor_Group_Name}}">{{group}} </option>
+                                {% endfor %}
+
+                            </select>
+						</div>
+					</div>
+
+                    <div class="col-md-3">
+						<div class="form-group">
+						<label>Distributor Name</label>
+									<div class="row">
+
+									<input type="text" class="form-control" name="d_name">
+										</div>
+							</div>
+
+
+					</div>
+                    <div class="col-md-3">
+						<div class="form-group">
+						<label>Address</label>
+									<div class="row">
+									<input type="text" class="form-control" name="d_address">
+										</div>
+							</div>
+					</div>
+
+                    <div class="col-md-3">
+						<div class="form-group">
+						<label>Mobile</label>
+									<div class="row">
+									<input type="text" class="form-control" name="d_mobile">
+										</div>
+							</div>
+					</div>
+					</div>
+
+
+						<div class="card-action">
+									<button type="submit" class="btn btn-success">Add</button>
+									<button class="btn btn-danger">Cancel</button>
+								</div>
+
+						</form>
+
+
+						</div>
+						</div>
+						</div>
+						</div>
+						 <table>
+                            <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Distributor Name</th>
+                            <th>Address</th>
+                            <th>Mobile</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            </tr>
+                            {% for distributor in distributors %}
+                            <tr>
+                                <td data-id="{{distributor.id}}">{{ distributor.Ditributor_Id}}</td>
+                                <td contenteditable='true' id="data-dname-{{distributor.Ditributor_Id}}" onClick="highlightEdit(this);">{{ distributor.Name}}</td>
+                                <td contenteditable='true'  onClick="highlightEdit(this);">
+                                    <select id="data-dgname-{{distributor.Ditributor_Id}}">
+                                        <option selected>{{ distributor.Group_Name}}</option>
+                                        {% for group in context %}
+                                            <option value="{{group.Distributor_Group_Name}}">{{group.Distributor_Group_Name}} </option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td contenteditable='true' id="data-daddr-{{distributor.Ditributor_Id}}" onClick="highlightEdit(this);">{{distributor.Address}}</td>
+                                <td contenteditable='true' id="data-dmob-{{distributor.Ditributor_Id}}" onClick="highlightEdit(this);">{{distributor.Mobile}}</td>
+                                 <td><a style="color:green;font-weight:bold;" onclick="saveDistributor('{{distributor.Ditributor_Id}}')" role="button">Save</a></td>
+                                <td><a style="color:red;font-weight:bold;" onclick="return confirm('{{distributor.Name}} will be deleted, are you sure ?')" href={% url 'delete_d' distributor.Ditributor_Id %} role="button" >Delete</a></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+						<script type="text/javascript">
+                            // save the details edited
+                            function saveDistributor(id) {
+                                //e.preventDefault();
+                                console.log(id)
+                                editName = $('#data-dname-'+id).html()
+                                editDistributorGroupName = $('#data-dgname-'+id).val()
+                                editAddress = $('#data-daddr-'+id).html()
+                                editMobile = $('#data-dmob-'+id).html()
+                                console.log(editName,editDistributorGroupName,editAddress,editMobile)
+                                $.ajax({
+                                    url: "list/update/"+id,
+                                    data: {
+                                        "Name": editName,
+                                        "Distributor_Group_Name": editDistributorGroupName,
+                                        "Address":editAddress,
+                                        "Mobile":editMobile,
+                                        "type":"Distributor" },
+                                    success: function() {
+                                         // set updated value as old value
+                                        alert("Updated successfully")
+                                    },
+                                    error: function(response){
+                                        alert(response)
+                                    }
+                                });
+
+                            }
+                            // highlight the cell for 5 seconds
+                            function highlightEdit(elem)
+                            {
+
+                                $(elem).css("background", "red") //just add any css or anything, it's only to depict that this area is being edited...
+                                setTimeout(()=>{
+                                    $(elem).css("background","")
+                                },3000)
+                            }
+                        </script>
+{% endblock %}

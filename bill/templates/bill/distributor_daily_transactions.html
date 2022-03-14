@@ -1,0 +1,108 @@
+{% extends 'bill/base.html' %}	
+{% block content %}	
+	<div class="col-md-12">
+        <div class="card">
+			<div class="card-header">
+				<div class="card-title">Today's Distributor Transaction</div>
+			</div>
+			<div class="card-body">
+				<div class="mbill">
+			    	<form action="{% url 'add-dtd'  %}" method="POST" enctype="multipart/form-data" >
+					{% csrf_token %}			
+					<div class="phs">
+
+                    <div class="card-header">    
+                        <div class="card-title">Import Data From Excel</div>
+                    </div>
+                    
+                    <div class="card-action">
+                        <input type="file" name="myfile">
+                        <input type="submit" name="importData" value="Import XLSX" class="btn btn-primary">                        
+                    </div>  
+
+                    <div class="card-header">
+                    <div class="card-title">Add Data Form</div>
+                    </div>
+
+					<div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Distributor Id</label>
+                                <select class="form-control" name="id">
+                                    <option selected>--Select--</option>
+                                    {% for distributor in distributors%}
+                                    <option value="{{distributor.Distributor_Id}}">{{ distributor.Name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>				
+                        </div>	
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" class="form-control" name="date">	
+                            </div>											
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Product Id</label>
+                                <select class="form-control" name="product">
+                                    <option selected>--Select--</option>
+                                    {% for product in products%}
+                                    <option value="{{product.Product_Id}}">{{ product.Product_Name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>				
+                        </div>	
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Time</label>
+                                <select class="form-control" name="time">
+                                    <option selected>--Select--</option>
+                                    <option value="morning">Morning</option>
+                                    <option value="evening">Evening</option>
+                                </select>	
+                            </div>											
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Quantity</label>    
+                                <input type="number" class="form-control" name="quantity">
+                            </div>											
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Rate</label>
+                                <input type="number" class="form-control" name="rate">
+                            </div>											
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Paid</label><br>
+                                <input type="number" class="form-control" name="paid">
+                            </div>				
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Due</label><br>
+                                <input type="number" class="form-control" name="due">
+                            </div>				
+                        </div>
+                    </div>
+
+					<div class="card-action">
+						<button type="submit" name="formData" class="btn btn-success">Add</button>
+					</div>
+                    </form>    
+				</div>
+			</div>
+        </div>
+	</div>
+{% endblock %}					
+				

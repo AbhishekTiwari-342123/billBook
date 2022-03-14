@@ -1,0 +1,56 @@
+
+{% extends 'bill/base.html' %}	
+{% block content %}	
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">New Farmer Group</div>
+								</div>
+								<div class="card-body">
+									<div class="mbill">
+					<form action="#" method="post" >
+					{% csrf_token %}	
+						
+						
+					<div class="phs">
+					
+					<div class="row">
+					
+					<div class="col-md-6">
+						<div class="form-group">
+									<label>Group Id</label>
+									<input type="text" class="form-control" name="f_g_id" required>
+										</div>
+										
+									
+							</div>	
+<div class="col-md-6">
+						<div class="form-group">
+						<label>Group Name</label>
+									<div class="row">
+									<div class="col-md-5">
+									<input type="text" class="form-control" name="f_g_name"></div><div class="col-md-2 to">
+										
+										</div>
+										</div>
+										
+								
+							</div>									
+								
+										
+						</div>
+					</div>
+						<div class="card-action">
+									<button type="submit" class="btn btn-success">Add</button>
+									<button class="btn btn-danger">Cancel</button>
+								</div>
+						
+						</form>
+						
+						
+						</div>
+						</div>
+						</div>
+						</div>
+{% endblock %}					
+				

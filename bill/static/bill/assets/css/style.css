@@ -1,0 +1,120 @@
+body{
+	
+	font-family:arial;
+	height:100%;
+	
+}
+section{
+	
+	background:url(../img/ola1.jpg) repeat center top;
+	padding:293px 0px 55px;
+	min-height:280px;
+}
+
+.wrapper{
+	
+	width:1200px;
+	margin:0 auto;
+}
+.logpage img{
+	
+	width:100px;
+	margin:0 auto;
+	text-align:center;
+	display:block;
+}
+.logpage{
+	
+	width:500px;
+	padding:20px 40px;
+	background: rgba(0,212,255,0.7);
+	margin:0 auto;
+	box-shadow:0 0 15px #fff inset;
+	border-radius:10px;
+
+}
+.logpage h2{
+	
+	color:#fff;
+	font-size:30px;
+	text-align:center;
+	margin:0px;
+	
+}
+.logpage label{
+	font-size:16px;
+font-family:verdana;
+font-weight:bold;
+color:#000;
+display:block;
+margin-bottom:15px;
+}
+.logpage form input{
+background:#f3f3f3;
+height:40px;
+line-height:40px;
+padding:5px;
+box-shadow:0 0 5px #333 inset;
+border:1px solid #ddd;
+margin-bottom:15px;
+width:400px;
+display:block;
+}
+.logpage form input:hover{
+	box-shadow:0 0 5px #333 inset;
+border:1px solid #ddd;
+}
+
+.logpage form input[type="submit"]{
+background:#000;
+width:150px;
+height:50px;
+line-height:50px;
+border-radius:20px;
+color:#fff;
+font-size:18px;
+font-weight:bold;
+text-align:center;
+padding:0;
+cursor:pointer; 
+}
+.logpage p{
+	
+	color:#000;
+	
+}
+ .logpage a{
+	
+	color:#000;
+	font-weight:bold;
+}
+
+
+footer{
+	background:#333;
+	padding:3px;
+}
+.ft p, .ft a{
+	
+	color:#ffff00;
+	font-size:26px;
+        text-align: center;
+}
+.ft a{
+	
+	color:#ffff00;
+	font-weight:bold;
+	
+}
+
+.pcar ul{
+	margin:0;
+	
+}
+.pcar ul li{
+	
+	color:#000;
+	font-size:14px;
+	font-family:arial;
+	margin-bottom:5px;
+}

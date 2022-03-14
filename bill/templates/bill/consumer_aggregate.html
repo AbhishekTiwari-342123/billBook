@@ -1,0 +1,185 @@
+{% extends 'bill/base.html' %}	
+{% block content %}	
+	<div class="col-md-12">
+        <div class="card">
+			<div class="card-header">
+				<div class="card-title">Aggregate Customer Paid / Due</div>
+			</div>
+      <div class="card-body">
+				<div class="mbill">
+			    	<form  aggr-url="{% url 'add-cao'  %}" id="aggrform" >		
+					<div class="phs">
+
+					<div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Customer Id</label>
+                                <select class="form-control" name="id" id="CustomerId">
+                                    <option selected>--Select--</option>
+                                    {% for customer in Customers%}
+                                    <option value="{{customer.Customer_Id}}">{{ customer.Name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>				
+                        </div>	
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>From Date</label>
+                                <input type="date" id="fdate" class="form-control" name="fdate">	
+                            </div>											
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>To Date</label>
+                                <input type="date" id="tdate" class="form-control" name="tdate">	
+                            </div>											
+                        </div>
+                    </div>
+                    <div class="card-action">
+                      <button id="one" value="submit" name="one" class="btn btn-success">Add</button>
+                    </div>
+            </form>
+        
+            <div class="row">
+              <table id="table1">
+                <tr>
+                  <th>Customer Id</th>
+                  <th>Date</th>
+                  <th>Paid</th>
+                  <th>Due</th>
+                </tr>
+                <tbody id="aggregate"></tbody>
+                
+              </table>
+              <button class="btn-primary" id="btnExport" disabled style="position: relative;left:20px">Export HTML Table</button>
+            </div> 
+					</div>    
+				</div>
+			</div>
+      <div class="card-header">
+				<div class="card-title">Aggregate Distributor Paid / Due</div>
+			</div>
+      <div class="card-body">
+				<div class="mbill">
+			    	<form  aggr-url="{% url 'add-dao'  %}" id="daggrform" >		
+					<div class="phs">
+
+					<div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Customer Id</label>
+                                <select class="form-control" name="id" id="DistributorId">
+                                    <option selected>--Select--</option>
+                                    {% for distributor in Distributors %}
+                                    <option value="{{distributor.Ditributor_Id}}">{{ distributor.Name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>				
+                        </div>	
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>From Date</label>
+                                <input type="date" id="dfdate" class="form-control" name="dfdate">	
+                            </div>											
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>To Date</label>
+                                <input type="date" id="dtdate" class="form-control" name="dtdate">	
+                            </div>											
+                        </div>
+                    </div>
+                    
+                    <div class="card-action">
+                      <button id="two" value="submit" name="two" class="btn btn-success">Add</button>
+                    </div>
+                    
+                    </form>
+                    
+                      
+						
+            <div class="row">
+              <table>
+                <tr>
+                  <th>Distributor Id</th>
+                  <th>Date</th>
+                  <th>Paid</th>
+                  <th>Due</th>
+                </tr>
+                <tbody id="daggregate"></tbody>
+              </table>
+            </div> 
+					</div>    
+				</div>
+			</div>
+        </div>
+      
+	</div>
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script> -->
+    <script>
+      $("#one").click(function (e) {
+        e.preventDefault();
+        var url = $("#aggrform").attr("aggr-url");  // get the url of the `load_courses` view
+        var CustomerId = $("#CustomerId").val();  // get the selected programming ID from the HTML input
+        var fdate = $("#fdate").val();  // get the selected programming ID from the HTML input
+        var tdate = $("#tdate").val();  // get the selected programming ID from the HTML input
+        console.log("hello")
+        console.log(url);
+        
+        $.ajax({                       // initialize an AJAX request
+          url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+          data: {
+            'CustomerId': CustomerId,
+            'fdate':fdate,
+            'tdate':tdate     // add the programming id to the GET parameters
+          },
+          success: function (data) {
+            console.log(data)  // `data` is the return of the `load_courses` view function
+            $('#btnExport').attr('disabled',false)
+            $("#aggregate").html('');
+            $("#aggregate").append(data);  // replace the contents of the course input with the data that came from the server
+          }
+        });
+      });
+
+      $("#two").click(function (e) {
+        e.preventDefault();
+        var url = $("#daggrform").attr("aggr-url");  // get the url of the `load_courses` view
+        var DistributorId = $("#DistributorId").val();  // get the selected programming ID from the HTML input
+        var fdate = $("#dfdate").val();  // get the selected programming ID from the HTML input
+        var tdate = $("#dtdate").val();  // get the selected programming ID from the HTML input
+        console.log("hello")
+        console.log(url);
+        
+        $.ajax({                       // initialize an AJAX request
+          url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+          data: {
+            'DistributorId': DistributorId,
+            'fdate':fdate,
+            'tdate':tdate     // add the programming id to the GET parameters
+          },
+          success: function (data) {
+            console.log(data)   // `data` is the return of the `load_courses` view function
+            $("#daggregate").html('');
+            $("#daggregate").append(data);  // replace the contents of the course input with the data that came from the server
+          }
+        });
+      });
+
+      // html table export
+      $('#btnExport').click( function(e){
+        console.log("hello")
+        e.preventDefault();
+        $('#table1').table2excel({
+          name:"Worksheet Name",
+          filename:"Customer Report",//do not include extension
+          fileext:".xlsx" // file extension
+        });
+      })
+    </script> 
+
+  
+  
+     
+{% endblock %}					
+				
